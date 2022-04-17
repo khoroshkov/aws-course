@@ -102,3 +102,19 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Local terraform directories
+**/.terraform/*
+.terraform
+
+# State files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+*.log
+crash.log
+crash.*.log
+
+# Sensative data
+*.tfvars
