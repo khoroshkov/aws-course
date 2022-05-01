@@ -20,15 +20,10 @@ launchConfigTemplate:
       - !Ref HTTPSecurityGroup
     IamInstanceProfile: !Ref EC2InstanceProfile
   UserData:
-    Comment1: 'Installing java'
-    'AWS::CloudFormation::Init':
-      configSets:
-        Install:
-          - Install
-      Install:
-        packages:
-          yum -y:
-            java-1.8.0-openjdk: []
+      Fn::Base64: |
+#!/bin/bash
+        sudo yum -y update
+        sudo yum -y install java-1.8.0-openjdk
 
   SSHSecurityGroup:
     Description: This security group is configured for SSH access
