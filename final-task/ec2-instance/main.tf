@@ -1,14 +1,14 @@
-data "template_file" "install_java_user_data" {
-  template = "${file("install.sh.tpl")}"
-}
+# data "template_file" "install_java_user_data" {
+#   template = "${file("install.sh.tpl")}"
+# }
 
-data "template_file" "install_private_subnet_user_data" {
-  template = "${file("install-private-subnet.sh.tpl")}"
+# data "template_file" "install_private_subnet_user_data" {
+#   template = "${file("install-private-subnet.sh.tpl")}"
 
-  vars = {
-    rds_address = var.rds_address
-  }
-}
+#   vars = {
+#     rds_address = var.rds_address
+#   }
+# }
 
 resource "aws_launch_template" "final_task_launch_template" {
   image_id      = var.ec2_ami_id
@@ -21,7 +21,8 @@ resource "aws_launch_template" "final_task_launch_template" {
 
   vpc_security_group_ids = [aws_security_group.sg_final_task_public_subnet.id]
 
-  user_data = "${data.template_file.install_java_user_data.rendered}"
+  # user_data = "${data.template_file.install_java_user_data.rendered}"
+  user_data = base64encode(templatefile("${path.module}/install.sh.tpl", {s3_bucket_name = var.s3_bucket_name}))
 }
 
 resource "aws_autoscaling_group" "final_task_ag" {
@@ -45,7 +46,8 @@ resource "aws_instance" "ec2_instance_private_subnet" {
   vpc_security_group_ids = [aws_security_group.sg_final_task_private_subnet.id]
   iam_instance_profile   = aws_iam_instance_profile.final_task_instance_profile.id
 
-  user_data = "${data.template_file.install_private_subnet_user_data.rendered}"
+  # user_data = "${data.template_file.install_private_subnet_user_data.rendered}"
+  user_data = base64encode(templatefile("${path.module}/install-private-subnet.sh.tpl", {rds_address = var.rds_address}))
 
   tags = {
     name = "ec2 instance for private subnet"
@@ -54,7 +56,9 @@ resource "aws_instance" "ec2_instance_private_subnet" {
 
 resource "aws_instance" "ec2_instance_NAT" {
   ami                    = var.ec2_nat_ami_id
-  instance_type          = var.ec2_instance_type
+  # instance_type          = var.ec2_instance_type
+  # NOT FREE TIER INSTANCE TYPE
+  instance_type          = "c6g.medium"
   subnet_id              = var.public_subnet_first_id
   key_name               = var.aws_ssh_key_name
   source_dest_check      = false

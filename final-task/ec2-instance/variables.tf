@@ -51,3 +51,7 @@ variable "cidr_block_vpc" {
   description = "Cidr block for VPC"
   type    = string
 }
+
+variable "s3_bucket_name" {
+  type = string
+}

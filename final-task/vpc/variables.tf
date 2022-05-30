@@ -28,7 +28,7 @@ variable "az_first_public_subnet" {
 
 variable "az_second_public_subnet" {
   type = string
-  default = "us-east-2b"
+  default = "us-west-2b"
 }
 
 variable "az_first_private_subnet" {
@@ -38,5 +38,5 @@ variable "az_first_private_subnet" {
 
 variable "az_second_private_subnet" {
   type = string
-  default = "us-west-2b"
+  default = "us-west-2c"
 }
