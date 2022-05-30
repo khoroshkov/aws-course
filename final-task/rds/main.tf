@@ -4,8 +4,8 @@ resource "aws_db_instance" "postgres_db_instance" {
   allocated_storage      = 20
   storage_type           = "gp2"
   engine                 = "postgres"
-  engine_version         = "12.3"
-  instance_class         = "db.t2.micro"
+  engine_version         = "13.4"
+  instance_class         = "db.t3.micro"
   username               = var.user_name
   password               = var.user_password
   db_subnet_group_name = aws_db_subnet_group.rds_db_subnet_group.id
@@ -22,14 +22,14 @@ resource "aws_security_group" "rds_security_group" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.rds_sg_cidr_block]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.rds_sg_cidr_block]
   }
 }
 

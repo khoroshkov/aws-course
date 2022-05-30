@@ -10,13 +10,14 @@ terraform {
 # Configure the AWS Provider
 provider "aws" {
   region = var.aws_region
-  access_key = "**********"
-  secret_key = "**********"
+  access_key = "AKIAWVLAJPV66FHRA7GN"
+  secret_key = "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"
 }
 
 # Importing module Dynamo DB
 module "dynamo_db_table_config" {
   source = "./dynamo-db"
+  dynamo_db_name = var.dynamo_db_name
 }
 
 # Importing module EC2 instance
@@ -28,6 +29,7 @@ module "ec2_instance" {
   ec2_instance_type       = var.ec2_instance_type
   aws_ssh_key_name        = var.aws_ssh_key_name
   cidr_block_vpc          = var.cidr_block_vpc
+  s3_bucket_name          = var.s3_bucket_name
   vpc_id                  = module.final_task_vpc.vpc_id
   public_subnet_first_id  = module.final_task_vpc.first_public_subnet_id
   public_subnet_second_id = module.final_task_vpc.second_public_subnet_id

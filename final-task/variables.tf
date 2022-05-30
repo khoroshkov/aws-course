@@ -57,3 +57,15 @@ variable "cidr_block_second_private_subnet" {
   type = string
   default = "10.0.4.0/24"
 }
+
+variable "dynamo_db_name" {
+  description = "Final task Dymano DB table name"
+  type        = string
+  default     = "edu-lohika-training-aws-dynamodb"
+}
+
+variable "s3_bucket_name" {
+  description = "AWS S3 final task bucket name"
+  type = string
+  default = "mkhoroshkov-lohika-bucket"
+}

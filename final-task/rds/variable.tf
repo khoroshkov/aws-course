@@ -27,3 +27,9 @@ variable "rds_db_name" {
   type = string
   default = "EduLohikaTrainingAwsRds"
 }
+
+variable "rds_sg_cidr_block" {
+  description = "Default sidr block for RDS security group"
+  type = string
+  default = "0.0.0.0/0"
+}

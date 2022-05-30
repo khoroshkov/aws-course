@@ -1,20 +1,20 @@
 # Create an IAM role for the Web Servers.
 resource "aws_iam_role" "ec2_iam_role" {
     name = "ec2_iam_role"
-    assume_role_policy = <<EOF
+    assume_role_policy = <<-EOF
     {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": "sts:AssumeRole",
+          "Principal": {
+            "Service": "ec2.amazonaws.com"
+          },
+          "Effect": "Allow",
+          "Sid": ""
+        }
+      ]
     }
-  ]
-  }
  EOF
 }
 
@@ -26,7 +26,7 @@ resource "aws_iam_instance_profile" "final_task_instance_profile" {
 resource "aws_iam_role_policy" "final_task_iam_role_policy" {
   name = "final_task_iam_role_policy"
   role = aws_iam_role.ec2_iam_role.id
-  policy = <<EOF
+  policy = <<-EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -48,11 +48,11 @@ resource "aws_iam_role_policy" "final_task_iam_role_policy" {
       "Resource": "*"
     },
     {
-        "Action": [
-          "dynamoDb:*"
+      "Action": [
+        "dynamoDb:*"
         ],
-        "Effect": "Allow",
-        "Resource": "*"
+      "Effect": "Allow",
+      "Resource": "*"
       }
   ]
 }
