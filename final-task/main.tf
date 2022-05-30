@@ -10,8 +10,8 @@ terraform {
 # Configure the AWS Provider
 provider "aws" {
   region = var.aws_region
-  access_key = "AKIAWVLAJPV66FHRA7GN"
-  secret_key = "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"
+  access_key = ""
+  secret_key = ""
 }
 
 # Importing module Dynamo DB
